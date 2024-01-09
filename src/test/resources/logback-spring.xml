@@ -1,0 +1,43 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[u:%X{username};s:%X{scenario}] [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <timestamp key="byDay" datePattern="yyyyMMdd"/>
+
+  <appender name="FILE"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>demoapp.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <fileNamePattern>demoapp.%d{yyyy-MM-dd}.log
+      </fileNamePattern>
+      <maxHistory>10</maxHistory>
+    </rollingPolicy>
+
+    <append>true</append>
+    <encoder>
+      <pattern>[u:%X{username};s:%X{scenario}] [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.flywaydb" level="WARN"/>
+  <logger name="org.springframework.boot.actuate" level="WARN"/>
+  <logger name="org.springframework" level="WARN"/>
+  <logger name="org.springframework.security" level="WARN"/>
+  <logger name="org.hibernate" level="WARN"/>
+  <logger name="org.mongodb.driver" level="WARN"/>
+  <logger name="springfox" level="WARN"/>
+  <logger name="com.github.dockerjava" level="WARN"/>
+  <logger name="org.testcontainers" level="WARN"/>
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="FILE"/>
+  </root>
+</configuration>
